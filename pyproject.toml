@@ -1,0 +1,9 @@
+[project]
+name = "embedded-cpp-llm-refactor"
+version = "0.1.0"
+description = "Embedded C++ refactoring and unit-test generation research demo."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
