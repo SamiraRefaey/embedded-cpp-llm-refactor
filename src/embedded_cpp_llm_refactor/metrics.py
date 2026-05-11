@@ -1,9 +1,19 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 import re
 
 
 TOKEN_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*|\d+|==|<=|>=|[{}();,=*+-]")
+
+
+@dataclass(frozen=True)
+class EvaluationResult:
+    token_overlap: float
+    maintainability_before: float
+    maintainability_after: float
+    maintainability_delta: float
+    hallucination_flags: list[str]
 
 
 def tokens(code: str) -> list[str]:
@@ -31,3 +41,15 @@ def hallucination_flags(code: str) -> list[str]:
         if api in code:
             risky.append(f"Potential embedded safety issue: {api.strip()}")
     return risky
+
+
+def evaluate_refactor(original: str, candidate: str) -> EvaluationResult:
+    before = maintainability_proxy(original)
+    after = maintainability_proxy(candidate)
+    return EvaluationResult(
+        token_overlap=token_overlap(original, candidate),
+        maintainability_before=before,
+        maintainability_after=after,
+        maintainability_delta=after - before,
+        hallucination_flags=hallucination_flags(candidate),
+    )

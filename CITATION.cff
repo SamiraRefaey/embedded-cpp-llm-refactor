@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this research prototype, please cite it using the metadata below."
+title: "Embedded C++ Refactoring with LLM Assistance"
+version: "0.1.0"
+date-released: 2026-05-11
+authors:
+  - name: "Research Project Maintainer"
+keywords:
+  - embedded-cpp
+  - refactoring
+  - large-language-models
+  - software-engineering
